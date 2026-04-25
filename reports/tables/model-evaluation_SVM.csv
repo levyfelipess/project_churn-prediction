@@ -1,0 +1,8 @@
+,Treinamento,Teste
+Acurácia,0.795,0.800
+Precisão,0.626,0.637
+Recall,0.561,0.567
+F1-Score,0.592,0.600
+Fbeta-Score,0.573,0.580
+AUROC,-----,0.847
+AUPRC,-----,0.665

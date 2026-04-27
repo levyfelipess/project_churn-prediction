@@ -10,7 +10,28 @@ def random_search_with_kfoldcv(model,
                                df_X_train, df_y_train,
                                n_comb, k, hyperparam_distributions,
                                transformer_X, transformer_y,
-                               global_seed=7, verbose_tqdm=True,):
+                               global_seed=7, verbose_tqdm=True):
+    """
+    Performa otimização de hiperparâmetros por maximização da AUROC utilizando busca aleatória com validação cruzada k-fold estratificada.
+
+    Args:
+        model: Modelo;
+        df_X_train (pd.DataFrame): Dataset de treinamento com atributos de entrada;
+        df_y_train (pd.DataFrame or pd.Series): Dataset de treinamento com atributo de saída;
+        n_comb (int): Número de combinações de hiperparâmetros a serem avaliadas;
+        k (int): Número de partições da validação cruzada;
+        hyperparam_distributions (dict[str, scipy.stats or list]): Coleção de distribuições dos hiperparâmetros;
+        transformer_X: Transformação ou conjunto de transformações nas variáveis de entrada;
+        transformer_y: Transformação ou conjunto de transformações na variável de saída;
+        global_seed (int, optional): Semente aleatória a ser aplicada em todos os algoritmos estocásticos (reprodutibilidade);
+        verbose_tqdm (bool, optional): Indica se barras de progresso do tqdm devem ser mostradas;
+
+    Returns:
+        pd.DataFrame: Tabela com as combinações testadas juntamente com suas métricas médias nos conjuntos de validação.
+
+    Notes:
+        Em "hyperparam_distributions", é possível passar uma lista com os elementos a serem escolhidos aleatoriamente. A escolha será de modo uniforme.
+    """
     masks = list(StratifiedKFold(n_splits=k, shuffle=True, random_state=global_seed).split(df_X_train, df_y_train))
     hyperparam_combinations = {}
     for key in hyperparam_distributions.keys():
@@ -57,6 +78,27 @@ def parallelized_random_search_with_kfoldcv(model,
                                             n_comb, k, hyperparam_distributions,
                                             transformer_X, transformer_y,
                                             n_jobs, global_seed=7):
+    """
+    Performa otimização de hiperparâmetros por maximização da AUROC utilizando busca aleatória com validação cruzada k-fold estratificada com a possibilidade de paralelização nos folds.
+
+    Args:
+        model: Modelo;
+        df_X_train (pd.DataFrame): Dataset de treinamento com atributos de entrada;
+        df_y_train (pd.DataFrame or pd.Series): Dataset de treinamento com atributo de saída;
+        n_comb (int): Número de combinações de hiperparâmetros a serem avaliadas;
+        k (int): Número de partições da validação cruzada;
+        hyperparam_distributions (dict[str, scipy.stats or list]): Coleção de distribuições dos hiperparâmetros;
+        transformer_X: Transformação ou conjunto de transformações nas variáveis de entrada;
+        transformer_y: Transformação ou conjunto de transformações na variável de saída;
+        n_jobs: Número de núcleos;
+        global_seed (int, optional): Semente aleatória a ser aplicada em todos os algoritmos estocásticos (reprodutibilidade);
+
+    Returns:
+        pd.DataFrame: Tabela com as combinações testadas juntamente com suas métricas médias nos conjuntos de validação.
+
+    Notes:
+        Em "hyperparam_distributions", é possível passar uma lista com os elementos a serem escolhidos aleatoriamente. A escolha será de modo uniforme.
+    """
     masks = list(StratifiedKFold(n_splits=k, shuffle=True, random_state=global_seed).split(df_X_train, df_y_train))
     hyperparam_combinations = {}
     for key in hyperparam_distributions.keys():

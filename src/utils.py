@@ -12,7 +12,7 @@ def highlight_nthmax(nth_max=1):
     Returns:
         function: Função que aplicará o realce.
 
-    Note:
+    Notes:
         A função de saída deve ser utilizada nos objetos Styler do pandas, como argumento do método ".apply".
     """
     def highlight_max(s, props=""):
@@ -45,7 +45,7 @@ def load_models(models_names, path='../models/', format='.pkl'):
     Returns:
         dict: Coleção de modelos.
 
-    Note:
+    Notes:
         As chaves do dicionário de saída serão os nomes dos arquivos sem formato.
     """
     models = {}

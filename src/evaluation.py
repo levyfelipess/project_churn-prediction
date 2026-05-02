@@ -79,7 +79,7 @@ def evaluate(model,
     f1s_test = f1_score(y_pred=y_test_pred, y_true=y_test)
     fbs_test = fbeta_score(y_pred=y_test_pred, y_true=y_test, beta=beta_fscore)
     auroc_test = trapezoid(x=fpr_vec, y=tpr_vec)
-    auprc_test = trapezoid(x=tpr_vec, y=pre_vec)
+    aupr_test = trapezoid(x=tpr_vec, y=pre_vec)
 
     metrics_dict = {
         'Treinamento':[ffp(acc_train, dig, min_digits=dig), ffp(pre_train, dig, min_digits=dig), ffp(rec_train, dig, min_digits=dig),
@@ -87,7 +87,7 @@ def evaluate(model,
                        '-----', '-----'],
         'Teste':[ffp(acc_test, dig, min_digits=dig), ffp(pre_test, dig, min_digits=dig), ffp(rec_test, dig, min_digits=dig),
                  ffp(f1s_test, dig, min_digits=dig), ffp(fbs_test, dig, min_digits=dig),
-                 ffp(auroc_test, dig, min_digits=dig), ffp(auprc_test, dig, min_digits=dig)]
+                 ffp(auroc_test, dig, min_digits=dig), ffp(aupr_test, dig, min_digits=dig)]
     }
 
     if display_metrics_table:
@@ -175,7 +175,7 @@ def evaluate(model,
         ax[1].set_xlabel('Recall')
         ax[1].set_ylabel('Precisão')
         ax[0].set_title('Curva ROC'+model_title+'\n$(\\text{AUROC}='+ffp(auroc_test, dig, min_digits=dig)+')$')
-        ax[1].set_title('Curva PR'+model_title+'\n$(\\text{AUPR}='+ffp(auprc_test, dig, min_digits=dig)+')$')
+        ax[1].set_title('Curva PR'+model_title+'\n$(\\text{AUPR}='+ffp(aupr_test, dig, min_digits=dig)+')$')
         ax[0].grid(lw=.5)
         ax[1].grid(lw=.5)
         ax[0].legend(loc='best')
@@ -289,7 +289,7 @@ def display_final_comparison_with_highlight(metrics_final_comparison_dict,
         fbeta_score_str = 'F'+ffp(beta_fscore, 2)+'-Score'
         
     metrics_final_comparison_df = pd.DataFrame(metrics_final_comparison_dict,
-                                               index=['Acurácia','Precisão','Recall','F1-Score',fbeta_score_str,'AUROC','AUPRC'])
+                                               index=['Acurácia','Precisão','Recall','F1-Score',fbeta_score_str,'AUROC','AUPR'])
     if save_table:
         metrics_final_comparison_df.to_csv(path_table)
         

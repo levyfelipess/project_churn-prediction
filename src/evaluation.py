@@ -266,22 +266,30 @@ def display_best_hyperparam_combinations(df,
 
 def display_final_comparison_with_highlight(metrics_final_comparison_dict,
                                             table_title,
+                                            beta_fscore=None,
                                             save_table=False,
                                             path_table='final-comparison.csv'):
     """
     Exibe uma tabela as métricas de diversos modelos para comparação final, com realce para os:
-    - 1º melhores;
-    - 2º melhores;
-    - piores.
+    - 1º melhores: células azuis escuras (darkblue) e letras destacadas;
+    - 2º melhores: células azuis claras (steelblue);
+    - piores:      células vermelhas claras (tomato).
 
     Args:
         metrics_final_comparison_dict (dict[str, str or float]): Coleção das métricas para cada modelo;
         table_title (str): Título da tabela;
+        beta_fscore (float or None, optional): Peso do Recall utilizado na métrica Fbeta-Score;
+                                               se beta_fscore=None, a tabela exibirá e armazenará a designação 'Fbeta-Score'.
         save_table (bool, optional): Indica se a tabela deve ser salva;
         path_table (str, optional): Caminho completo de armazenamento, caso a tabela seja salva
     """
+    if beta_fscore==None:
+        fbeta_score_str = 'Fbeta-Score'
+    else:
+        fbeta_score_str = 'F'+ffp(beta_fscore, 2)+'-Score'
+        
     metrics_final_comparison_df = pd.DataFrame(metrics_final_comparison_dict,
-                                               index=['Acurácia','Precisão','Recall','F1-Score','F$_{\\beta}$-Score','AUROC','AUPRC'])
+                                               index=['Acurácia','Precisão','Recall','F1-Score',fbeta_score_str,'AUROC','AUPRC'])
     if save_table:
         metrics_final_comparison_df.to_csv(path_table)
         

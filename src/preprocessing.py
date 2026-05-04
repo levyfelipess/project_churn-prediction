@@ -120,3 +120,20 @@ def get_transformers(df_X, df_y):
     transformer_y = OneHotEncoder(sparse_output=False, drop='first', categories=[['No', 'Yes']])
 
     return transformers_X, transformer_y
+
+def detect_empty_string(df, empty_string_size_min=0, empty_string_size_max=10):
+    """
+    Detecta variáveis contendo strings vazias do tipo '', ' ', ...
+
+    Args:
+        df (pd.DataFrame): Dataframe completo;
+        empty_string_size_min (int, optional): Número mínimo de espaços na string vazia;
+        empty_string_size_max (int, optional): Número máximo de espaços na string vazia;
+    """
+    features_with_empty_strings = np.array([], dtype=np.int32)
+    for size in range(empty_string_size_min, empty_string_size_max + 1):
+        features_with_empty_strings = np.concatenate((features_with_empty_strings, np.unique(np.where(df == ' ' * size)[1])))
+    if len(features_with_empty_strings) > 0:
+        display(df.columns[features_with_empty_strings])
+    else:
+        print("No empty strings!")

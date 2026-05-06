@@ -1,8 +1,8 @@
 ,Treinamento,Teste
-Acurácia,0.819,0.809
-Precisão,0.711,0.686
-Recall,0.536,0.518
-F1-Score,0.611,0.590
-F2.-Score,0.563,0.545
-AUROC,-----,0.854
-AUPR,-----,0.683
+Acurácia,0.795,0.806
+Precisão,0.674,0.696
+Recall,0.444,0.475
+F1-Score,0.535,0.565
+F2.-Score,0.477,0.508
+AUROC,-----,0.852
+AUPR,-----,0.676

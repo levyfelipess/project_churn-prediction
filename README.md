@@ -94,26 +94,40 @@ git clone https://github.com/levyfelipess/projeto_churn-prediction
 ```
 
 #### 2. Instalar dependências
-Dentro da pasta principal do repositório, `projeto_churn-prediction`
+Dentro da pasta principal do repositório, `projeto_churn-prediction`:
 ```
 pip install -r requirements.txt
 ```
 e então rodar os notebooks.
 
-#### (OPCIONAL, mas recomendado) Criar ambiente virtual
-Antes da etapa 2, dentro da pasta principal do repositório, `projeto_churn-prediction`
+#### (OPCIONAL, mas recomendado) Utilizar ambiente virtual
+Antes da etapa 2, dentro da pasta principal do repositório, `projeto_churn-prediction`:
+##### 1. Criar o ambiente
 ```
 python -m venv .venv
 ```
-e ative o ambiente (Windows):
+##### 2. Ativar o ambiente
+Git bash (independe do OS):
 ```
-.venv\Scripts\activate
+source .venv/Scripts/activate
 ```
-ou (Linux / MacOS):
+Windows (PowerShell):
+```
+.venv\Scripts\activate.bat
+```
+Linux/ MacOS:
 ```
 source .venv/bin/activate
 ```
-e então, voltar à etapa 2.
+##### 3. Instalar dependências
+```
+pip install -r requirements.txt
+```
+##### 4. Criar kernel específico para o ambiente
+```
+python -m ipykernel install --user --name=nome-do-kernel
+```
+e ao entrar no notebook, selecionar o kernel criado.
 
 ## Visualização dos Notebooks
 Para uma experiência de visualização completa, se possível, acessar pelo NBViewer (principalmente o Notebook 3):

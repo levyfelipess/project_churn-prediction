@@ -88,46 +88,36 @@ projeto_churn-prediction/
 ```
 
 ## Como Executar o Projeto
-#### 1. Clonar o repositório
+As instruções abaixo se referem, linha por linha, respectivamente a:
+1. Clonar o repositório;
+2. Entrar na pasta do repositório;
+3. Instalar dependências específicas
 ```
 git clone https://github.com/levyfelipess/projeto_churn-prediction
-```
-
-#### 2. Instalar dependências
-Dentro da pasta principal do repositório, `projeto_churn-prediction`:
-```
+cd projeto_churn-prediction
 pip install -r requirements.txt
 ```
-e então rodar os notebooks.
+Após, rodar os notebooks.
 
-#### (OPCIONAL, mas recomendado) Utilizar ambiente virtual
-Antes da etapa 2, dentro da pasta principal do repositório, `projeto_churn-prediction`:
-##### 1. Criar o ambiente
+### (OPCIONAL, mas recomendado) Utilizar ambiente virtual
+As instruções abaixo se referem, linha por linha, respectivamente a:
+1. Clonar o repositório;
+2. Entrar na pasta do repositório;
+3. Criar ambiente virtual;
+4. *Ativar ambiente virtual;
+5. Instalar dependências específicas;
+6. Criar kernel específico para o ambiente.
 ```
+git clone https://github.com/levyfelipess/projeto_churn-prediction
+cd projeto_churn-prediction
 python -m venv .venv
-```
-##### 2. Ativar o ambiente
-Git bash (independe do OS):
-```
 source .venv/Scripts/activate
-```
-Windows (PowerShell):
-```
-.venv\Scripts\activate.bat
-```
-Linux/ MacOS:
-```
-source .venv/bin/activate
-```
-##### 3. Instalar dependências
-```
 pip install -r requirements.txt
-```
-##### 4. Criar kernel específico para o ambiente
-```
 python -m ipykernel install --user --name=nome-do-kernel
 ```
-e ao entrar no notebook, selecionar o kernel criado.
+Após, selecionar o kernel criado quando abrir os notebooks.
+
+*: Considera-se a utilização do Git bash, que independe do OS. A ativação por terminais Windows (cmd, PowerShell), Linux ou MacOS requerem comandos diferentes.
 
 ## Visualização dos Notebooks
 Para uma experiência de visualização completa, se possível, acessar pelo NBViewer (principalmente o Notebook 3):

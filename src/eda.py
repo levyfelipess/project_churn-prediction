@@ -12,6 +12,26 @@ plt.rcParams['mathtext.fontset'] = 'cm'
 def cramerv_inputs_target(df, target_column=-1, style_format='standard', significance=0.05, save=False, path='chi2-test_result.csv',
                           display_language='pt-br'):
     """
+    (EN)
+    Displays a table containing Cramer's V between the output and categorical inputs, as well as important values ​​from the Chi-square test
+    of association.
+
+    Args:
+        df (pd.DataFrame): Dataframe containing only categorical variables;
+        target_column (str or int, optional): Key of the output variable. If int, it will be interpreted as the column position;
+        style_format (dict[str, str or function] or str=='standard', optional): Formatting style. If style_format=='standard',
+                                                                                uses the already programmed style;
+        significance (float, optional): Significance level of the Chi-square test.
+        save (bool, optional): Indicates whether the dataframe should be saved;
+        path (str, optional): Complete storage path;
+        display_language (str, optional): Display language.
+
+    Notes:
+        Using df.loc[:, df.dtypes=='object'] to select categorical variables usually works;
+        Table with interpretation values ​​for Cramer's V available at: https://www.statology.org/interpret-cramers-v/
+    
+    ---
+    (PT-BR)
     Exibe tabela contendo o V de Cramér entre a saída e as entradas categóricas, bem como valores importantes do teste Chi2 de associação.
     
     Args:
@@ -21,7 +41,8 @@ def cramerv_inputs_target(df, target_column=-1, style_format='standard', signifi
                                                                                 utiliza o estilo já programado;
         significance (float, optional): Nível de significância do teste Chi2.
         save (bool, optional): Indica se o dataframe deve ser salvo;
-        path (str, optional): Caminho completo de armazenamento.
+        path (str, optional): Caminho completo de armazenamento;
+        display_language (str, optional): Idioma de exibição.
 
     Notes:
         Utilizar df.loc[:, df.dtypes=='object'] para selecionar variáveis categóricas geralmente funciona;
@@ -77,13 +98,28 @@ def cramerv_inputs_target(df, target_column=-1, style_format='standard', signifi
 
 def boxplot(df, feature_name, save=False, path='boxplot.png', plot_language='pt-br', plot=True):
     """
-    Plota dois boxplots personalizados: 1) da variável numérica em um geral e 2) condicionado pela classe de saída.
+    (EN)
+    Plots two custom boxplots: 1) boxplot of the numeric variable without conditioning, and 2) conditioned by the output class.
+
+    Args:
+        df (pd.DataFrame): Dataframe containing (at least) the output variable 'Churn' and the variable in 'feature_name';
+        feature_name (str): Variable key in the dataframe;
+        save (bool, optional): Indicates whether the boxplot should be saved;
+        plot (bool, optional): Indicates whether the boxplot should be plotted;
+        path (str, optional): Complete storage path;
+        plot_language (str, optional): Plotting language.
+    
+    ---
+    (PT-BR)
+    Plota dois boxplots personalizados: 1) da variável numérica sem condicionamento e 2) condicionado pela classe de saída.
 
     Args:
         df (pd.DataFrame): Dataframe contendo (pelo menos) a variável de saída 'Churn' e a variável em questão;
         feature_name (str): Chave da variável no dataframe;
         save (bool, optional): Indica se o boxplot deve ser salvo;
-        path (str, optional): Caminho completo de armazenamento.
+        plot (bool, optional): Indica se o boxplot deve ser plotado;
+        path (str, optional): Caminho completo de armazenamento;
+        plot_language (str, optional): Idioma de plotagem.
     """
     if plot_language=='pt-br':
         ax_title = ['Geral', 'Condicionado pelas classes de saída']
@@ -113,13 +149,29 @@ def boxplot(df, feature_name, save=False, path='boxplot.png', plot_language='pt-
 
 def barplot_with_percent(df, feature_name, save=False, path='barplot.png', plot_language='pt-br', plot=True):
     """
+    (EN)
+    Plots two custom bar charts: 1) bar with frequency of the categorical variable without conditioning, and
+                                 2) conditioned by the output class.
+
+    Args:
+        df (pd.DataFrame): Dataframe containing (at least) the output variable 'Churn' and the variable in 'feature_name';
+        feature_name (str): Variable key in the dataframe;
+        save (bool, optional): Indicates whether the bar chart should be saved;
+        plot (bool, optional): Indicates whether the bar chart should be plotted;
+        path (str, optional): Complete storage path;
+        plot_language (str, optional): Plotting language.
+    
+    ---
+    (PT-BR)
     Plota dois gráficos de barras personalizados: 1) frequência da variável categórica em um geral e 2) condicionada pela classe de saída.
 
     Args:
         df (pd.DataFrame): Dataframe contendo (pelo menos) a variável de saída 'Churn' e a variável em questão;
         feature_name (str): Chave da variável no dataframe;
         save (bool, optional): Indica se o gráfico de barras deve ser salvo;
+        plot (bool, optional): Indica se o gráfico de barras deve ser plotado;
         path (str, optional): Caminho completo de armazenamento.
+        plot_language (str, optional): Idioma de plotagem.
     """
     if plot_language=='pt-br':
         ax_ylabel = 'Frequência'
@@ -160,12 +212,26 @@ def barplot_with_percent(df, feature_name, save=False, path='barplot.png', plot_
 
 def barplot_with_percent_target(df, save=False, path='barplot.png', plot_language='pt-br', plot=True):
     """
+    (EN)
+    Plots a customized bar chart of frequency for the output variable 'Churn'.
+
+    Args:
+        df (pd.DataFrame): Dataframe containing (at least) the output variable 'Churn';
+        save (bool, optional): Indicates whether the bar chart should be saved;
+        plot (bool, optional): Indicates whether the bar chart should be plotted;
+        path (str, optional): Complete storage path;
+        plot_language (str, optional): Plotting language.
+    
+    ---
+    (PT-BR)
     Plota gráfico de barras de frequência para a variável de saída 'Churn', personalizado.
 
     Args:
         df (pd.DataFrame): Dataframe contendo (pelo menos) a variável de saída 'Churn';
         save (bool, optional): Indica se o gráfico de barras deve ser salvo;
-        path (str, optional): Caminho completo de armazenamento.
+        plot (bool, optional): Indica se o gráfico de barras deve ser plotado;
+        path (str, optional): Caminho completo de armazenamento;
+        plot_language (str, optional): Idioma de plotagem.
     """
     if plot_language=='pt-br':
         ax_ylabel = 'Frequência'

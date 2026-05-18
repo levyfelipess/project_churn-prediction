@@ -10,12 +10,24 @@ from src.utils import display_elapsed_time
 
 def train_model(model, X, y, display_language='pt-br'):
     """
+    (EN)
+    Trains a model using '.fit()' and displays the elapsed time during the process.
+
+    Args:
+        model: Model with '.fit()' method for training;
+        X (np.array): Matrix of training input patterns;
+        y (np.array): Vector of training output patterns;
+        display_language (str, optional): Display language.
+    
+    ---
+    (PT-BR)
     Treina um modelo com '.fit()' e exibe o tempo decorrido durante um processo.
 
     Args:
         model: Modelo com método '.fit()' para treino;
         X (np.array): Matriz de padrões de entrada de treino;
-        y (np.array): Vetor de padrões de saída de treino.
+        y (np.array): Vetor de padrões de saída de treino;
+        display_language (str, optional): Idioma de exibição.
     """
     time0 = perf_counter()
     model.fit(X=X, y=y)
@@ -29,6 +41,31 @@ def random_search_with_kfoldcv(model,
                                transformer_X, transformer_y,
                                global_seed=7, verbose_tqdm=True, verbose_language='pt-br'):
     """
+    (EN)
+    Performs hyperparameter optimization by maximizing the AUROC using random search with stratified k-fold cross-validation.
+
+    Args:
+        model: Model;
+        df_X_train (pd.DataFrame): Training dataset with input variables;
+        df_y_train (pd.DataFrame or pd.Series): Training dataset with output variable;
+        n_comb (int): Number of hyperparameter combinations to be evaluated;
+        k (int): Number of cross-validation folds;
+        hyperparam_distributions (dict[str, scipy.stats or list]): Collection of hyperparameter distributions;
+        transformer_X: Transformation or set of transformations on the input variables;
+        transformer_y: Transformation or set of transformations on the output variable;
+        global_seed (int, optional): Random seed to be applied in all stochastic algorithms (reproducibility);
+        verbose_tqdm (bool, optional): Indicates whether tqdm progress bars should be displayed;
+        verbose_language (str, optional): Display language for tqdm progress bars.
+
+    Returns:
+        pd.DataFrame: Table with the tested combinations along with their average metrics in the validation sets.
+
+    Notes:
+        In "hyperparam_distributions", it is possible to pass a list with the elements to be chosen randomly, and so the selection will be
+        uniform.
+    
+    ---
+    (PT-BR)
     Performa otimização de hiperparâmetros por maximização da AUROC utilizando busca aleatória com validação cruzada k-fold estratificada.
 
     Args:
@@ -42,13 +79,14 @@ def random_search_with_kfoldcv(model,
         transformer_y: Transformação ou conjunto de transformações na variável de saída;
         global_seed (int, optional): Semente aleatória a ser aplicada em todos os algoritmos estocásticos (reprodutibilidade);
         verbose_tqdm (bool, optional): Indica se barras de progresso do tqdm devem ser mostradas;
+        verbose_language (str, optional): Idioma de exibição das barras de progresso tqdm.
 
     Returns:
         pd.DataFrame: Tabela com as combinações testadas juntamente com suas métricas médias nos conjuntos de validação.
 
     Notes:
-        Em "hyperparam_distributions", é possível passar uma lista com os elementos a serem escolhidos aleatoriamente.
-        A escolha será de modo uniforme.
+        Em "hyperparam_distributions", é possível passar uma lista com os elementos a serem escolhidos aleatoriamente, e então a escolha
+        será de modo uniforme.
     """
     if verbose_language=='pt-br':
         tqdm_desc = 'Validação Cruzada K-Fold'
@@ -109,6 +147,32 @@ def parallelized_random_search_with_kfoldcv(model,
                                             transformer_X, transformer_y,
                                             n_jobs, global_seed=7, display_language='pt-br'):
     """
+    (EN)
+    Performs hyperparameter optimization by maximizing the AUROC using random search with stratified k-fold cross-validation and
+    parallelization over the folds.
+
+    Args:
+        model: Model;
+        df_X_train (pd.DataFrame): Training dataset with input variables;
+        df_y_train (pd.DataFrame or pd.Series): Training dataset with output variable;
+        n_comb (int): Number of hyperparameter combinations to be evaluated;
+        k (int): Number of cross-validation folds;
+        hyperparam_distributions (dict[str, scipy.stats or list]): Collection of hyperparameter distributions;
+        transformer_X: Transformation or set of transformations on the input variables;
+        transformer_y: Transformation or set of transformations on the output variable;
+        n_jobs: Number of cores;
+        global_seed (int, optional): Random seed to be applied in all stochastic algorithms (reproducibility);
+        display_language (str, optional): Display language.
+
+    Returns:
+        pd.DataFrame: Table with the tested combinations along with their average metrics in the validation sets.
+
+    Notes:
+        In "hyperparam_distributions", it is possible to pass a list with the elements to be chosen randomly, and so the selection will be
+        uniform.
+    
+    ---
+    (PT-BR)
     Performa otimização de hiperparâmetros por maximização da AUROC utilizando busca aleatória com validação cruzada k-fold estratificada
     com a possibilidade de paralelização nos folds.
 
@@ -123,6 +187,7 @@ def parallelized_random_search_with_kfoldcv(model,
         transformer_y: Transformação ou conjunto de transformações na variável de saída;
         n_jobs: Número de núcleos;
         global_seed (int, optional): Semente aleatória a ser aplicada em todos os algoritmos estocásticos (reprodutibilidade);
+        display_language (str, optional): Idioma de exibição.
 
     Returns:
         pd.DataFrame: Tabela com as combinações testadas juntamente com suas métricas médias nos conjuntos de validação.

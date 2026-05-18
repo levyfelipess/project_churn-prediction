@@ -19,6 +19,39 @@ def evaluate(model,
              path_metrics_table='metrics_table.csv', path_confusion_matrix='confusion_matrix.png', path_roc_pr_curve='roc_pr_curves.png',
              plot_display_language='pt-br'):
     """
+    (EN)
+    Evaluates a model with several metrics in the training and test sets.
+    
+    Args:
+        model: Model;
+        X_train (np.array or pd.DataFrame): Training matrix of input variables;
+        X_test (np.array or pd.DataFrame): Test matrix of input variables;
+        y_train (np.array or pd.DataFrame): Training vector of the output variable;
+        y_test (np.array or pd.DataFrame): Test vector of the output variable;
+        threshold (float, optional): Decision threshold for the positive class;
+        beta_fscore (float, optional): Recall weighting in the F-beta Score metric;
+        dig (int, optional): Number of digits to be displayed in the tables and confusion matrix;
+        model_title (str, optional): Title that will be displayed in the tables and graphs of the metrics;
+        threshold_step (float, optional): Threshold step for plotting ROC and PR curves;
+        display_metrics_table (bool, optional): Indicates whether the metrics table should be displayed;
+        plot_confusion_matrix (bool, optional): Indicates whether the confusion matrices should be plotted;
+        plot_roc_pr_curve (bool, optional): Indicates whether the ROC and PR curves should be plotted;
+        save_metrics_table (bool, optional): Indicates whether the metrics table should be saved;
+        save_confusion_matrix (bool, optional): Indicates whether the confusion matrices should be saved;
+        save_roc_pr_curve (bool, optional): Indicates whether the ROC and PR curves should be saved;
+        path_metrics_table (str, optional): Full path to store the metrics table;
+        path_confusion_matrix (str, optional): Full path to store the confusion matrices;
+        path_roc_pr_curve (str, optional): Full path to store the ROC and PR curves;
+        plot_display_language (str, optional): Plotting and display language.
+
+    Returns:
+        dict[str, str]: Collection of metrics in the training and test sets.
+
+    Notes:
+        The data matrices must already be normalized.
+
+    ---
+    (PT-BR)
     Avalia um modelo individualmente com muitas métricas, nos conjuntos de treinamento e teste.
 
     Args:
@@ -40,7 +73,8 @@ def evaluate(model,
         save_roc_pr_curve (bool, optional): Indica se as curvas roc e pr devem ser salvas;
         path_metrics_table (str, optional): Caminho completo para armazenamento da tabela de métricas;
         path_confusion_matrix (str, optional): Caminho completo para armazenamento das matrizes de confusão;
-        path_roc_pr_curve (str, optional): Caminho completo para armazenamento das curvas roc e pr.
+        path_roc_pr_curve (str, optional): Caminho completo para armazenamento das curvas roc e pr;
+        plot_display_language (str, optional): Idioma de plotagem e exibição.
 
     Returns:
         dict[str, str]: Coleção das métricas nos conjuntos de treinamento e teste.
@@ -204,6 +238,25 @@ def evaluate_several_models(models,
                             df_X_train, df_X_test, df_y_train, df_y_test,
                             threshold=0.5, beta_fscore=2.):
     """
+    (EN)
+    Evaluates several models.
+
+    Args:
+        models (dict[str, model]): Models to be evaluated;
+        transformers_X (dict[str, transformer]): Normalizations of the input variables, specific to each model;
+        transformer_y: Normalization of the output variable;
+        df_X_train (pd.DataFrame): Training matrix of the input variables without normalization;
+        df_X_test (pd.DataFrame): Test matrix of the input variables without normalization;
+        df_y_train (pd.DataFrame or pd.Series): Training vector of the output variable without normalization;
+        df_y_test (pd.DataFrame or pd.Series): Test vector of the output variable without normalization;
+        threshold (float, optional): Decision threshold for the positive class;
+        beta_fscore (float, optional): Weighting of the Recall in the F-beta Score metric;
+
+    Returns:
+        dict[str, str]: Collection of metrics in the test set for each model.
+
+    ---
+    (PT-BR)
     Avalia diversos modelos.
 
     Args:
@@ -247,12 +300,28 @@ def display_best_hyperparam_combinations(df,
                                          sort_by=None, ascending=False,
                                          style_format={}):
     """
+    (EN)
+    Displays a table with the winning hyperparameter settings.
+
+    Args:
+        df(pd.DataFrame): Combinations of hyperparameters with the decision metric;
+        n_best(int or None, optional): Number of combinations to be displayed. If n_best=None, all combinations will be displayed;
+        with_one_standard_error_rule(bool, optional): Indicates whether the "1 standard error" (1SE) rule should be applied;
+        metric_mean_column(str, optional): Name of the average metric column in the dataframe;
+        metric_se_column(str, optional): Name of the standard error column of the average metric in the dataframe;
+        sort_by(str or None, optional): Name of the column that will be used for sorting.
+                                        If sort_by=None, the sorting will be by metric_mean_column;
+        ascending (bool, optional): Indicates whether the sorting should be ascending (True) or descending (False);
+        style_format (dict[str, str or function], optional): Formatting style for any desired hyperparameters.
+
+    ---
+    (PT-BR)
     Exibe uma tabela com as configurações campeãs de hiperparâmetros.
 
     Args:
         df (pd.DataFrame): Combinações de hiperparâmetros com a métrica de decisão;
         n_best (int or None, optional): Número de combinações a serem exibidas. Se n_best=None, exibe todas as combinações;
-        with_one_standard_error_rule (bool, optional): Indica se a regra do "1 erro padrão" deve ser aplicada;
+        with_one_standard_error_rule (bool, optional): Indica se a regra do "1 erro padrão" (1SE) deve ser aplicada;
         metric_mean_column (str, optional): Nome da coluna de métrica média no dataframe;
         metric_se_column (str, optional): Nome da coluna de erro padrão da métrica média no dataframe;
         sort_by (str or None, optional): Nome da coluna que será utilizada para ordenação.
@@ -285,6 +354,23 @@ def display_final_comparison_with_highlight(metrics_final_comparison_dict,
                                             path_table='final-comparison.csv',
                                             display_language='pt-br'):
     """
+    (EN)
+    Displays a table with metrics from several models for final comparison, highlighting the:
+    - 1st best: dark blue cells (darkblue) and bold letters;
+    - 2nd best: light blue cells (steelblue);
+    - worst: light red cells (tomato).
+    
+    Args:
+        metrics_final_comparison_dict (dict[str, str or float]): Collection of metrics for each model;
+        table_title (str): Table title;
+        beta_fscore (float or None, optional): Recall weight used in the Fbeta-Score metric.
+                                               If beta_fscore=None, the table will display and store the designation 'Fbeta-Score';
+        save_table (bool, optional): Indicates whether the table should be saved;
+        path_table (str, optional): Full storage path, if the table is saved;
+        display_language (str, optional): Display language.
+
+    ---
+    (PT-BR)
     Exibe uma tabela as métricas de diversos modelos para comparação final, com realce para os:
     - 1º melhores: células azuis escuras (darkblue) e letras destacadas;
     - 2º melhores: células azuis claras (steelblue);
@@ -296,7 +382,8 @@ def display_final_comparison_with_highlight(metrics_final_comparison_dict,
         beta_fscore (float or None, optional): Peso do Recall utilizado na métrica Fbeta-Score;
                                                se beta_fscore=None, a tabela exibirá e armazenará a designação 'Fbeta-Score'.
         save_table (bool, optional): Indica se a tabela deve ser salva;
-        path_table (str, optional): Caminho completo de armazenamento, caso a tabela seja salva
+        path_table (str, optional): Caminho completo de armazenamento, caso a tabela seja salva;
+        display_language (str, optional): Idioma de exibição.
     """
     if beta_fscore==None:
         fbeta_score_str = 'Fbeta-Score'

@@ -6,6 +6,20 @@ from sklearn.base import BaseEstimator, TransformerMixin
 
 class ZScoreNormalizer(BaseEstimator, TransformerMixin):
     """
+    (EN)
+    Z-Score normalization using sample standard deviation.
+
+    Attributes:
+        ddof (int): Degrees of freedom in the standard deviation calculation;
+        mean_vec (np.array): Vector of means of features;
+        std_vec (np.array): Vector of standard deviations of features.
+
+    Notes:
+        The parent class BaseEstimator provides compatibility with other methods in sklearn;
+        The parent class TransformerMixin automatically adds the ".fit_transform" method.
+    
+    ---
+    (PT-BR)
     Normalização Z-Score que utiliza desvio padrão amostral.
 
     Attributes:
@@ -19,6 +33,14 @@ class ZScoreNormalizer(BaseEstimator, TransformerMixin):
     """
     def __init__(self, ddof=1):
         """
+        (EN)
+        Initializes the Normalizer.
+
+        Args:
+            ddof (int, optional): Degrees of freedom in the standard deviation calculation.
+    
+        ---
+        (PT-BR)
         Inicializa o Normalizador.
 
         Args:
@@ -30,6 +52,15 @@ class ZScoreNormalizer(BaseEstimator, TransformerMixin):
 
     def fit(self, X, y=None):
         """
+        (EN)
+        Learn the parameters of the normalization.
+
+        Args:
+            X (np.array): Matrix of patterns and features, in "n x d" format;
+            y (None): Only for compatibility with other methods in sklearn.
+    
+        ---
+        (PT-BR)
         Aprende os parâmetros da normalização.
 
         Args:
@@ -42,6 +73,17 @@ class ZScoreNormalizer(BaseEstimator, TransformerMixin):
 
     def transform(self, X):
         """
+        (EN)
+        Apply the normalization.
+
+        Args:
+            X (np.array): Matrix of patterns and features, in "n x d" format.
+            
+        Returns:
+            np.array: Normalized matrix "X".
+    
+        ---
+        (PT-BR)
         Aplica a normalização.
 
         Args:
@@ -54,18 +96,46 @@ class ZScoreNormalizer(BaseEstimator, TransformerMixin):
 
     def inverse_transform(self, X):
         """
+        (EN)
+        Apply the inverse of normalization.
+
+        Args:
+            X (np.array): Normalized matrix of patterns and features, in "n x d" format.
+            
+        Returns:
+            np.array: Matrix "X" with denormalized means and standard deviations.
+    
+        ---
+        (PT-BR)
         Aplica o inverso da normalização.
 
         Args:
             X (np.array): Matriz de padrões e atributos normalizada, no formato "n x d".
 
         Returns:
-            np.array: Matrix "X" com médias e desvios padrões originais.
+            np.array: Matriz "X" com médias e desvios padrões desnormalizados.
         """
         return (X * self.std_vec) + self.mean_vec
 
 def clean_data_eda(df):
     """
+    (EN)
+    Applies all necessary transformations to the original dataset to make it ready for EDA.
+
+    Args:
+        df(pd.DataFrame): Original dataset (raw).
+
+    Returns:
+        pd.DataFrame: Processed dataset.
+
+    Notes:
+        Transformations for the dataset in this problem include:
+            1. Removing the "customerID" column;
+            2. Imputing missing values ​​in "TotalCharges";
+            3. Converting the type of "SeniorCitizen", "tenure", and "TotalCharges".
+    
+    ---
+    (PT-BR)
     Aplica todas as transformações necessárias ao dataset original para torná-lo pronto para eda.
 
     Args:
@@ -90,6 +160,25 @@ def clean_data_eda(df):
 
 def clean_data_modeling(df):
     """
+    (EN)
+    Applies all necessary transformations to the original dataset to make it ready for modeling.
+
+    Args:
+        df(pd.DataFrame): Original dataset (raw).
+
+    Returns:
+        pd.DataFrame: Processed dataset with input variables;
+        pd.DataFrame: Processed dataset with output variable.
+
+    Notes:
+        Transformations for the dataset in this problem include:
+            1. Removing the "customerID" column;
+            2. Removing the "gender" and "PhoneService" variables;
+            3. Imputing missing values ​​in "TotalCharges";
+            4. Converting the type of "SeniorCitizen", "tenure", and "TotalCharges".
+    
+    ---
+    (PT-BR)
     Aplica todas as transformações necessárias ao dataset original para torná-lo pronto para modelagem.
 
     Args:
@@ -119,6 +208,19 @@ def clean_data_modeling(df):
 
 def get_transformers(df_X, df_y):
     """
+    (EN)
+    Gets the specific transformations needed for the data, for each model.
+
+    Args:
+        df_X (pd.DataFrame): Complete dataset of input variables;
+        df_y (pd.DataFrame or pd.Series): Complete dataset of output variable.
+
+    Returns:
+        dict: Collection of transformations on the output variable, for each model;
+        OneHotEncoder: One-hot transformation for the output variable.
+    
+    ---
+    (PT-BR)
     Obtém as transformações específicas necessárias aos dados, para cada modelo.
 
     Args:
@@ -152,7 +254,17 @@ def get_transformers(df_X, df_y):
 
 def detect_empty_string(df, empty_string_size_min=0, empty_string_size_max=10):
     """
-    Detecta variáveis contendo strings vazias do tipo '', ' ', ...
+    (EN)
+    Detects and display variables containing empty strings of type '', ' ', ...
+
+    Args:
+        df (pd.DataFrame): Complete Dataframe;
+        empty_string_size_min (int, optional): Minimum number of spaces in the empty string;
+        empty_string_size_max (int, optional): Maximum number of spaces in the empty string.
+    
+    ---
+    (PT-BR)
+    Detecta e exibe variáveis contendo strings vazias do tipo '', ' ', ...
 
     Args:
         df (pd.DataFrame): Dataframe completo;

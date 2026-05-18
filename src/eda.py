@@ -75,30 +75,6 @@ def cramerv_inputs_target(df, target_column=-1, style_format='standard', signifi
         ).iloc[1:].style.set_caption(df_caption).format(style_format)
             )
 
-def plot_histogram(df, feature_name, save=False, path='histogram.png'):
-    """
-    Plota dois histogramas personalizados: 1) da variável numérica em um geral e 2) condicionado pela classe de saída.
-
-    Args:
-        df (pd.DataFrame): Dataframe contendo (pelo menos) a variável de saída 'Churn' e a variável em questão;
-        feature_name (str): Chave da variável no dataframe;
-        save (bool, optional): Indica se o histograma deve ser salvo;
-        path (str, optional): Caminho completo de armazenamento.
-    """
-    fig, ax = plt.subplots(1, 2, figsize=(10, 4), layout='constrained')
-    sns.histplot(ax=ax[0], data=df, x=feature_name, color='black')
-    sns.histplot(ax=ax[1], data=df, x=feature_name, color='black', hue='Churn')
-    ax[0].set_ylabel('Frequência')
-    ax[1].set_ylabel('Frequência')
-    fig.suptitle('Histogramas')
-    ax[0].set_title('Geral')
-    ax[1].set_title('Condicionado pelas classes de saída')
-    ax[0].grid(lw=.5, axis='y')
-    ax[1].grid(lw=.5, axis='y')
-    if save:
-        fig.savefig(path, dpi=300)
-    plt.show()
-
 def boxplot(df, feature_name, save=False, path='boxplot.png', plot_language='pt-br', plot=True):
     """
     Plota dois boxplots personalizados: 1) da variável numérica em um geral e 2) condicionado pela classe de saída.

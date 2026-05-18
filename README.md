@@ -1,4 +1,159 @@
-# Projeto de Previsão de *Churn* de Clientes
+# (EN) Customer Churn Prediction Project
+
+Data Science project focused on predicting churn in telecom customers,using machine learning models and business-oriented decision making.
+
+## Problem
+
+Customer churn directly impacts the recurring revenue of telecom companies. Anticipating which customers are most prone to churn allows for preventative retention actions.
+
+This project aims to predict churn and support cost-benefit-based retention decisions.
+
+## Methodology
+
+### Dataset
+#### Links
+- [Link 1: Kaggle](https://www.kaggle.com/datasets/blastchar/telco-customer-churn);
+- [Link 2: IBM](https://community.ibm.com/community/user/blogs/steven-macko/2019/07/11/telco-customer-churn-1113).
+
+#### About the dataset
+- The data contains information about a fictitious company that provided landline and internet services to 7043 customers in California (source: [Link 2](https://community.ibm.com/community/user/blogs/steven-macko/2019/07/11/telco-customer-churn-1113));
+- Each row represents a customer, and each column contains that customer's attributes (source: [Link 1](https://www.kaggle.com/datasets/blastchar/telco-customer-churn)):
+  - Customers who canceled service in the last month: column `Churn`;
+  - Services contracted by each client: telephone (column `PhoneService`), multiple lines (column `MultipleLines`), internet (column `InternetService`), online security (column `OnlineSecurity`), online backup (column `OnlineBackup`), device protection (column `DeviceProtection`), technical support (column `TechSupport`), TV streaming (column `StreamingTV`) and movie streaming (column `StreamingMovies`);
+  - Client account information: relationship length (column `tenure`), contract type (column `Contract`), payment method (column `PaymentMethod`), electronic billing (column `PaperlessBilling`), monthly charges (column `MonthlyCharges`) and total amount due (column `TotalCharges`);
+  - Demographic information about customers: gender (column `gender`), age range (column `SeniorCitizen`), and whether they have a partner (column `Partner`) or dependents (column `Dependents`).
+
+### Approach
+- Exploratory Data Analysis (EDA);
+- Data preprocessing (treatment, normalization, and encoding);
+- Comparison between multiple approaches:
+  - Logistic Regression (LR);
+  - K-Nearest Neighbors (KNN);
+  - Decision Trees (DT);
+  - Random Forests (RF);
+  - Support Vector Machines (SVM);
+- Hyperparameter optimization with random search and cross-validation;
+- Threshold analysis based on unequal error costs.
+
+## Key Project Highlights
+
+### Project Organization and Engineering
+- Organized modular structure (`src/`, `notebooks/`, `data/`, `models/`, `reports/`);
+- Separation between reusable code and exploratory notebooks;
+- Persistence of trained models;
+- Documented functions and classes;
+- Reproducibility and traceability of experiments (Git);
+
+### EDA
+- Statistical test of association between categorical input variables and the output (chi^2);
+- Assessment of the strength of association using Cramer's V coefficient;
+- Business insights;
+
+### Machine Learning Pipeline
+- Data splitting preserving the stratification of the output class;
+- Comparison between linear, non-linear, parametric, and non-parametric approaches;
+- Practices for total data leakage prevention;
+- Hyperparameter optimization with random search, stratified cross-validation, AUROC maximization, and the "1SE" rule;
+- Overfitting control;
+- Evaluation with several metrics, focusing on the most appropriate ones, considering: **1)** the problem, and **2)** the imbalance of the dataset;
+
+### Threshold Analysis
+- Threshold tuning based on consideration of unequal business costs (not just standard metrics);
+- Comparison between multiple cost scenarios (R = 2, 5, 10);
+
+## Project Structure
+```
+projeto_churn-prediction/
+├── data/
+│   ├── raw/
+│   └── processed/
+├── models/
+├── notebooks/
+│   ├── 01_eda.ipynb
+│   ├── 02_modeling_evaluation.ipynb
+│   └── 03_model-comparison_threshold-tuning.ipynb
+├── reports/
+│   ├── figures/
+│   │   ├── en/
+│   │   └── pt-br/
+│   └── tables/
+├── src/
+│   ├── eda.py
+│   ├── evaluation.py
+│   ├── modeling.py
+│   ├── models.py
+│   ├── preprocessing.py
+│   └── utils.py
+├── .gitignore
+├── CHANGELOG.md
+├── README.md
+└── requirements.txt
+```
+
+## How to Run the Project
+1. Clone the repository:
+```
+git clone https://github.com/levyfelipess/projeto_churn-prediction
+```
+2. Enter the directory:
+```
+cd projeto_churn-prediction
+```
+3. Install specific dependencies:
+```
+pip install -r requirements.txt
+```
+And then, run the notebooks.
+
+### (OPTIONAL, but recommended) Using a virtual environment
+1. Clone the repository:
+```
+git clone https://github.com/levyfelipess/projeto_churn-prediction
+```
+2. Enter the directory:
+```
+cd projeto_churn-prediction
+```
+3. Create a virtual environment:
+```
+python -m venv .venv
+```
+4. Activate the virtual environment (Git bash):
+```
+source .venv/Scripts/activate
+```
+5. Install specific dependencies:
+```
+pip install -r requirements.txt
+```
+6. Create a specific kernel for the environment:
+```
+python -m ipykernel install --user --name=kernel-name
+```
+Afterwards, select the created kernel when opening the notebooks.
+
+## Notebook Viewing
+For a complete viewing experience, if possible, access via NBViewer (especially Notebook 3):
+
+> [Notebook 1: EDA](https://nbviewer.org/github/levyfelipess/projeto_churn-prediction/blob/main/notebooks/01_eda.ipynb) \
+> [Notebook 2: Modeling and Evaluation](https://nbviewer.org/github/levyfelipess/projeto_churn-prediction/blob/main/notebooks/02_modeling_evaluation.ipynb) \
+> [Notebook 3: Model Comparison and Threshold Analysis](https://nbviewer.org/github/levyfelipess/projeto_churn-prediction/blob/main/notebooks/03_model-comparison_threshold-tuning.ipynb)
+
+## Results
+
+**LR** model showed the best balance between precision and recall in scenarios with different thresholds, in addition to being computationally one of the lightest and most interpretable. (The **KNN** model showed a better balance in the standard threshold situation.)
+
+Example of impact (scenario with R=5):
+
+- approximately 93% of churns identified;
+
+- **trade-off**: approximately 54% of customers impacted unnecessarily.
+
+## Conclusion
+This project demonstrates how machine learning can be used for real-world business decisions, considering the difference in error costs and impact on operations.
+
+---
+# (PT-BR) Projeto de Previsão de *Churn* de Clientes
 
 Projeto de Ciência de Dados focado na previsão de _churn_ em clientes de telecom, com aplicação de modelos de aprendizagem de máquina e otimização orientada a decisões de negócio.
 
@@ -74,6 +229,8 @@ projeto_churn-prediction/
 │   └── 03_model-comparison_threshold-tuning.ipynb
 ├── reports/
 │   ├── figures/
+│   │   ├── en/
+│   │   └── pt-br/
 │   └── tables/
 ├── src/
 │   ├── eda.py

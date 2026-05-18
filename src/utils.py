@@ -55,7 +55,7 @@ def load_models(models_names, path='../models/', format='.pkl'):
         models[name] = joblib.load(path + name + format)
     return models
 
-def display_elapsed_time(final_time, initial_time, elapsed_time=None):
+def display_elapsed_time(final_time, initial_time, elapsed_time=None, display_language='pt-br'):
     """
     Exibe o tempo decorrido durante um processo.
 
@@ -75,5 +75,11 @@ def display_elapsed_time(final_time, initial_time, elapsed_time=None):
     h, m, s = str(timedelta(seconds=dt_s)).split(':')
     dt_min = dt_s / 60
     dt_h = dt_min / 60
-    print(f"Tempo Total: {dt_s:.0f} s | {dt_min:.1f} min | {dt_h:.1f} h")
-    print(f"             "+h+"h "+m+"min "+s[:2]+"s")
+    if display_language=='pt-br':
+        print(f"Tempo Total: {dt_s:.0f} s = {dt_min:.1f} min = {dt_h:.1f} h")
+        print(f"             "+h+"h "+m+"min "+s[:2]+"s")
+    elif display_language=='en':
+        print(f"Total Time: {dt_s:.0f} s = {dt_min:.1f} min = {dt_h:.1f} h")
+        print(f"            "+h+"h "+m+"min "+s[:2]+"s")
+    else:
+        NotImplementedError

@@ -16,7 +16,8 @@ def evaluate(model,
              threshold=0.5, beta_fscore=1, dig=3, model_title='', threshold_step=0.01,
              display_metrics_table=True, plot_confusion_matrix=True, plot_roc_pr_curve=True,
              save_metrics_table=False, save_confusion_matrix=False, save_roc_pr_curve=False,
-             path_metrics_table='metrics_table.csv', path_confusion_matrix='confusion_matrix.png', path_roc_pr_curve='roc_pr_curves.png'):
+             path_metrics_table='metrics_table.csv', path_confusion_matrix='confusion_matrix.png', path_roc_pr_curve='roc_pr_curves.png',
+             plot_display_language='pt-br'):
     """
     Avalia um modelo individualmente com muitas métricas, nos conjuntos de treinamento e teste.
 
@@ -47,6 +48,27 @@ def evaluate(model,
     Notes:
         As matrizes de dados já devem estar normalizadas.
     """
+    if plot_display_language=='pt-br':
+        metrics_columns = ['Treinamento', 'Teste']
+        metrics_index = ['Acurácia','Precisão','Recall','F1-Score','F'+ffp(beta_fscore, 2)+'-Score','AUROC', 'AUPR']
+        display_caption = 'Métricas de Avaliação'+model_title
+        conf_matrix_ax_title = ['Absoluta', 'Relativa por linhas', 'Relativa por colunas', 'Relativa geral']
+        conf_matrix_fig_title = 'Matrizes de Confusão (Teste)'+model_title
+        current = 'Atual'
+        roc_pr_ylabel = 'Precisão'
+        roc_pr_ax_title = ['Curva ROC'+model_title, 'Curva PR'+model_title]
+    elif plot_display_language=='en':
+        metrics_columns = ['Training', 'Test']
+        metrics_index = ['Accuracy','Precision','Recall','F1-Score','F'+ffp(beta_fscore, 2)+'-Score','AUROC', 'AUPR']
+        display_caption = 'Evaluation Metrics'+model_title
+        conf_matrix_ax_title = ['Absolute', 'Relative (by rows)', 'Relative (by columns)', 'Relative overall']
+        conf_matrix_fig_title = 'Confusion Matrices (Test)'+model_title
+        current = 'Current'
+        roc_pr_ylabel = 'Precision'
+        roc_pr_ax_title = ['ROC Curve'+model_title, 'PR Curve'+model_title]
+    else:
+        raise NotImplementedError
+    
     y_train_prob_pred = model.predict_proba(X=X_train)[:, 1]
     y_test_prob_pred = model.predict_proba(X=X_test)[:, 1]
     y_train_pred = np.int32(y_train_prob_pred >= threshold)
@@ -79,24 +101,18 @@ def evaluate(model,
     aupr_test = trapezoid(x=tpr_vec, y=pre_vec)
 
     metrics_dict = {
-        'Treinamento':[ffp(acc_train, dig, min_digits=dig), ffp(pre_train, dig, min_digits=dig), ffp(rec_train, dig, min_digits=dig),
-                       ffp(f1s_train, dig, min_digits=dig), ffp(fbs_train, dig, min_digits=dig),
-                       '-----', '-----'],
-        'Teste':[ffp(acc_test, dig, min_digits=dig), ffp(pre_test, dig, min_digits=dig), ffp(rec_test, dig, min_digits=dig),
-                 ffp(f1s_test, dig, min_digits=dig), ffp(fbs_test, dig, min_digits=dig),
-                 ffp(auroc_test, dig, min_digits=dig), ffp(aupr_test, dig, min_digits=dig)]
+        metrics_columns[0]:[ffp(acc_train, dig, min_digits=dig), ffp(pre_train, dig, min_digits=dig), ffp(rec_train, dig, min_digits=dig),
+                            ffp(f1s_train, dig, min_digits=dig), ffp(fbs_train, dig, min_digits=dig), '-----', '-----'],
+        metrics_columns[1]:[ffp(acc_test, dig, min_digits=dig), ffp(pre_test, dig, min_digits=dig), ffp(rec_test, dig, min_digits=dig),
+                            ffp(f1s_test, dig, min_digits=dig), ffp(fbs_test, dig, min_digits=dig), ffp(auroc_test, dig, min_digits=dig),
+                            ffp(aupr_test, dig, min_digits=dig)]
     }
 
     if display_metrics_table:
-        display(
-            pd.DataFrame(metrics_dict,
-                index=['Acurácia','Precisão','Recall','F1-Score','F'+ffp(beta_fscore, 2)+'-Score','AUROC', 'AUPR']
-                        ).style.set_caption('Métricas de Avaliação'+model_title)
-                )
+        display(pd.DataFrame(metrics_dict, index=metrics_index).style.set_caption(display_caption))
 
     if save_metrics_table:
-        df_metrics = pd.DataFrame(metrics_dict,
-                                  index=['Acurácia','Precisão','Recall','F1-Score','F'+ffp(beta_fscore, 2)+'-Score','AUROC', 'AUPR'])
+        df_metrics = pd.DataFrame(metrics_dict, index=metrics_index)
         df_metrics.to_csv(path_metrics_table)
 
     if plot_confusion_matrix:
@@ -122,11 +138,11 @@ def evaluate(model,
             ax[i].set_yticklabels(['No', 'Yes'], rotation=0)
             ax[i].set_xlabel('Pred.')
             ax[i].set_ylabel('Obs.')
-        ax[0].set_title('Absoluta')
-        ax[1].set_title('Relativa por linhas')
-        ax[2].set_title('Relativa por colunas')
-        ax[3].set_title('Relativa total')
-        fig.suptitle('Matrizes de Confusão (Teste)'+model_title)
+        ax[0].set_title(conf_matrix_ax_title[0])
+        ax[1].set_title(conf_matrix_ax_title[1])
+        ax[2].set_title(conf_matrix_ax_title[2])
+        ax[3].set_title(conf_matrix_ax_title[3])
+        fig.suptitle(conf_matrix_fig_title)
         if save_confusion_matrix:
             fig.savefig(path_confusion_matrix, dpi=300)
         plt.show()
@@ -153,10 +169,10 @@ def evaluate(model,
         sns.lineplot(ax=ax[1], x=[0., 1.], y=[y_test.mean()] * 2, lw=.7, ls='--', color='black')
         sns.scatterplot(ax=ax[0], x=[fpr_vec[current_threshold_id]], y=[tpr_vec[current_threshold_id]],
                         marker='o', color='white', edgecolor='black', lw=1.,
-                        label=f'Atual ({threshold_vec[current_threshold_id]:.2f})', zorder=3)
+                        label=current+f' ({threshold_vec[current_threshold_id]:.2f})', zorder=3)
         sns.scatterplot(ax=ax[1], x=[tpr_vec[current_threshold_id]], y=[pre_vec[current_threshold_id]],
                         marker='o', color='white', edgecolor='black', lw=1.,
-                        label=f'Atual ({threshold_vec[current_threshold_id]:.2f})', zorder=3)
+                        label=current+f' ({threshold_vec[current_threshold_id]:.2f})', zorder=3)
         ax[0].fill_between(x=fpr_vec, y1=np.zeros_like(tpr_vec), y2=tpr_vec, color='black', alpha=.05)
         ax[1].fill_between(x=tpr_vec, y1=np.zeros_like(tpr_vec), y2=pre_vec, color='black', alpha=.05)
         ax[0].set_xticks(np.arange(0, 1.01, .1))
@@ -170,9 +186,9 @@ def evaluate(model,
         ax[0].set_xlabel('FPR')
         ax[0].set_ylabel('TPR')
         ax[1].set_xlabel('Recall')
-        ax[1].set_ylabel('Precisão')
-        ax[0].set_title('Curva ROC'+model_title+'\n$(\\text{AUROC}='+ffp(auroc_test, dig, min_digits=dig)+')$')
-        ax[1].set_title('Curva PR'+model_title+'\n$(\\text{AUPR}='+ffp(aupr_test, dig, min_digits=dig)+')$')
+        ax[1].set_ylabel(roc_pr_ylabel)
+        ax[0].set_title(roc_pr_ax_title[0]+'\n$(\\text{AUROC}='+ffp(auroc_test, dig, min_digits=dig)+')$')
+        ax[1].set_title(roc_pr_ax_title[1]+'\n$(\\text{AUPR}='+ffp(aupr_test, dig, min_digits=dig)+')$')
         ax[0].grid(lw=.5)
         ax[1].grid(lw=.5)
         ax[0].legend(loc='best')

@@ -8,7 +8,7 @@ from joblib import Parallel, delayed
 from time import perf_counter
 from src.utils import display_elapsed_time
 
-def train_model(model, X, y):
+def train_model(model, X, y, display_language='pt-br'):
     """
     Treina um modelo com '.fit()' e exibe o tempo decorrido durante um processo.
 
@@ -21,13 +21,13 @@ def train_model(model, X, y):
     model.fit(X=X, y=y)
     timef = perf_counter()
     
-    display_elapsed_time(final_time=timef, initial_time=time0)
+    display_elapsed_time(final_time=timef, initial_time=time0, display_language=display_language)
 
 def random_search_with_kfoldcv(model,
                                df_X_train, df_y_train,
                                n_comb, k, hyperparam_distributions,
                                transformer_X, transformer_y,
-                               global_seed=7, verbose_tqdm=True):
+                               global_seed=7, verbose_tqdm=True, verbose_language='pt-br'):
     """
     Performa otimização de hiperparâmetros por maximização da AUROC utilizando busca aleatória com validação cruzada k-fold estratificada.
 
@@ -50,6 +50,12 @@ def random_search_with_kfoldcv(model,
         Em "hyperparam_distributions", é possível passar uma lista com os elementos a serem escolhidos aleatoriamente.
         A escolha será de modo uniforme.
     """
+    if verbose_language=='pt-br':
+        tqdm_desc = 'Validação Cruzada K-Fold'
+    elif verbose_language=='en':
+        tqdm_desc = 'K-Fold Cross Validation'
+    else:
+        raise NotImplementedError
     masks = list(StratifiedKFold(n_splits=k, shuffle=True, random_state=global_seed).split(df_X_train, df_y_train))
     hyperparam_combinations = {}
     for key in hyperparam_distributions.keys():
@@ -60,7 +66,11 @@ def random_search_with_kfoldcv(model,
             hyperparam_combinations[key] = hyperparam_distributions[key].rvs(size=n_comb, random_state=global_seed)
 
     metrics_hyperparams = np.empty((k, n_comb))
+
+    original_model = model
     for i in range(k):
+        model = original_model
+        
         est_mask, val_mask = masks[i]
         df_X_est, df_y_est = df_X_train.iloc[est_mask], df_y_train.iloc[est_mask]
         df_X_val, df_y_val = df_X_train.iloc[val_mask], df_y_train.iloc[val_mask]
@@ -71,7 +81,7 @@ def random_search_with_kfoldcv(model,
         y_val = transformer_y.transform(df_y_val)
 
         if verbose_tqdm:
-            range_combinations = tqdm(range(n_comb), desc=f'Validação Cruzada K-Fold - {i+1}/{k}')
+            range_combinations = tqdm(range(n_comb), desc=tqdm_desc+f' - {i+1}/{k}')
         else:
             range_combinations = range(n_comb)
             
@@ -84,6 +94,8 @@ def random_search_with_kfoldcv(model,
             y_val_prob_pred = model.predict_proba(X=X_val_transformed)[:, 1]
         
             metrics_hyperparams[i][comb] = roc_auc_score(y_score=y_val_prob_pred, y_true=y_val)
+
+        del model
             
     hyperparam_combinations['auc (mean)'] = np.mean(metrics_hyperparams, axis=0)
     hyperparam_combinations['auc (std)'] = np.std(metrics_hyperparams, axis=0, ddof=1)
@@ -95,7 +107,7 @@ def parallelized_random_search_with_kfoldcv(model,
                                             df_X_train, df_y_train,
                                             n_comb, k, hyperparam_distributions,
                                             transformer_X, transformer_y,
-                                            n_jobs, global_seed=7):
+                                            n_jobs, global_seed=7, display_language='pt-br'):
     """
     Performa otimização de hiperparâmetros por maximização da AUROC utilizando busca aleatória com validação cruzada k-fold estratificada
     com a possibilidade de paralelização nos folds.
@@ -154,7 +166,7 @@ def parallelized_random_search_with_kfoldcv(model,
     time0 = perf_counter()
     metrics_hyperparams = np.array( Parallel(n_jobs=n_jobs)(delayed(parallel_kfoldcv_fn)(i) for i in range(k)) )
     timef = perf_counter()
-    display_elapsed_time(final_time=timef, initial_time=time0)
+    display_elapsed_time(final_time=timef, initial_time=time0, display_language=display_language)
             
     hyperparam_combinations['auc (mean)'] = np.mean(metrics_hyperparams, axis=0)
     hyperparam_combinations['auc (std)'] = np.std(metrics_hyperparams, axis=0, ddof=1)

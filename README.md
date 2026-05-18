@@ -83,6 +83,7 @@ projeto_churn-prediction/
 │   ├── preprocessing.py
 │   └── utils.py
 ├── .gitignore
+├── CHANGELOG.md
 ├── README.md
 └── requirements.txt
 ```

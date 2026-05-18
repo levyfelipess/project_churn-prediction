@@ -1,6 +1,6 @@
-,Treinamento,Teste
-Acurácia,0.795,0.806
-Precisão,0.674,0.696
+,Training,Test
+Accuracy,0.795,0.806
+Precision,0.674,0.696
 Recall,0.444,0.475
 F1-Score,0.535,0.565
 F2.-Score,0.477,0.508

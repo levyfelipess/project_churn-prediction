@@ -235,7 +235,8 @@ def evaluate_several_models(models,
                                                  X_train=X_train_transformed, X_test=X_test_transformed, y_train=y_train, y_test=y_test,
                                                  beta_fscore=beta_fscore, threshold=threshold,
                                                  display_metrics_table=False, plot_confusion_matrix=False, plot_roc_pr_curve=False,
-                                                 save_metrics_table=False, save_confusion_matrix=False, save_roc_pr_curve=False)['Teste']
+                                                 save_metrics_table=False, save_confusion_matrix=False, save_roc_pr_curve=False,
+                                                 plot_display_language='pt-br')['Teste']
     return metrics_final_comparison
 
 def display_best_hyperparam_combinations(df,
@@ -281,7 +282,8 @@ def display_final_comparison_with_highlight(metrics_final_comparison_dict,
                                             table_title,
                                             beta_fscore=None,
                                             save_table=False,
-                                            path_table='final-comparison.csv'):
+                                            path_table='final-comparison.csv',
+                                            display_language='pt-br'):
     """
     Exibe uma tabela as métricas de diversos modelos para comparação final, com realce para os:
     - 1º melhores: células azuis escuras (darkblue) e letras destacadas;
@@ -300,9 +302,14 @@ def display_final_comparison_with_highlight(metrics_final_comparison_dict,
         fbeta_score_str = 'Fbeta-Score'
     else:
         fbeta_score_str = 'F'+ffp(beta_fscore, 2)+'-Score'
+
+    if display_language=='pt-br':
+        metrics_index = ['Acurácia','Precisão','Recall','F1-Score',fbeta_score_str,'AUROC', 'AUPR']
+    elif display_language=='en':
+        metrics_index = ['Accuracy','Precision','Recall','F1-Score',fbeta_score_str,'AUROC', 'AUPR']
         
     metrics_final_comparison_df = pd.DataFrame(metrics_final_comparison_dict,
-                                               index=['Acurácia','Precisão','Recall','F1-Score',fbeta_score_str,'AUROC','AUPR'])
+                                               index=metrics_index)
     if save_table:
         metrics_final_comparison_df.to_csv(path_table)
         

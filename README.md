@@ -63,7 +63,7 @@ This project aims to predict churn and support cost-benefit-based retention deci
 
 ## Project Structure
 ```
-projeto_churn-prediction/
+project_churn-prediction/
 ├── data/
 │   ├── raw/
 │   └── processed/
@@ -93,11 +93,11 @@ projeto_churn-prediction/
 ## How to Run the Project
 1. Clone the repository:
 ```
-git clone https://github.com/levyfelipess/projeto_churn-prediction
+git clone https://github.com/levyfelipess/project_churn-prediction
 ```
 2. Enter the directory:
 ```
-cd projeto_churn-prediction
+cd project_churn-prediction
 ```
 3. Install specific dependencies:
 ```
@@ -108,11 +108,11 @@ And then, run the notebooks.
 ### (OPTIONAL, but recommended) Using a virtual environment
 1. Clone the repository:
 ```
-git clone https://github.com/levyfelipess/projeto_churn-prediction
+git clone https://github.com/levyfelipess/project_churn-prediction
 ```
 2. Enter the directory:
 ```
-cd projeto_churn-prediction
+cd project_churn-prediction
 ```
 3. Create a virtual environment:
 ```
@@ -135,9 +135,9 @@ Afterwards, select the created kernel when opening the notebooks.
 ## Notebook Viewing
 For a complete viewing experience, if possible, access via NBViewer (especially Notebook 3):
 
-> [Notebook 1: EDA](https://nbviewer.org/github/levyfelipess/projeto_churn-prediction/blob/main/notebooks/01_eda.ipynb) \
-> [Notebook 2: Modeling and Evaluation](https://nbviewer.org/github/levyfelipess/projeto_churn-prediction/blob/main/notebooks/02_modeling_evaluation.ipynb) \
-> [Notebook 3: Model Comparison and Threshold Analysis](https://nbviewer.org/github/levyfelipess/projeto_churn-prediction/blob/main/notebooks/03_model-comparison_threshold-tuning.ipynb)
+> [Notebook 1: EDA](https://nbviewer.org/github/levyfelipess/project_churn-prediction/blob/main/notebooks/01_eda.ipynb) \
+> [Notebook 2: Modeling and Evaluation](https://nbviewer.org/github/levyfelipess/project_churn-prediction/blob/main/notebooks/02_modeling_evaluation.ipynb) \
+> [Notebook 3: Model Comparison and Threshold Analysis](https://nbviewer.org/github/levyfelipess/project_churn-prediction/blob/main/notebooks/03_model-comparison_threshold-tuning.ipynb)
 
 ## Results
 
@@ -218,7 +218,7 @@ Este projeto tem como objetivo prever o _churn_ e apoiar decisões de retenção
 
 ## Estrutura do Projeto
 ```
-projeto_churn-prediction/
+project_churn-prediction/
 ├── data/
 │   ├── raw/
 │   └── processed/
@@ -248,11 +248,11 @@ projeto_churn-prediction/
 ## Como Executar o Projeto
 1. Clonar o repositório:
 ```
-git clone https://github.com/levyfelipess/projeto_churn-prediction
+git clone https://github.com/levyfelipess/project_churn-prediction
 ```
 2. Entrar no diretório:
 ```
-cd projeto_churn-prediction
+cd project_churn-prediction
 ```
 3. Instalar dependências específicas:
 ```
@@ -263,11 +263,11 @@ E então, rodar os notebooks.
 ### (OPCIONAL, mas recomendado) Utilizar ambiente virtual
 1. Clonar o repositório:
 ```
-git clone https://github.com/levyfelipess/projeto_churn-prediction
+git clone https://github.com/levyfelipess/project_churn-prediction
 ```
 2. Entrar no diretório:
 ```
-cd projeto_churn-prediction
+cd project_churn-prediction
 ```
 3. Criar ambiente virtual:
 ```
@@ -290,9 +290,9 @@ Após, selecionar o kernel criado quando abrir os notebooks.
 ## Visualização dos Notebooks
 Para uma experiência de visualização completa, se possível, acessar pelo NBViewer (principalmente o Notebook 3):
 
-> [Notebook 1: EDA](https://nbviewer.org/github/levyfelipess/projeto_churn-prediction/blob/main/notebooks/01_eda.ipynb) \
-> [Notebook 2: Modelagem e Avaliação](https://nbviewer.org/github/levyfelipess/projeto_churn-prediction/blob/main/notebooks/02_modeling_evaluation.ipynb) \
-> [Notebook 3: Comparação entre modelos e Análise de *Threshold*](https://nbviewer.org/github/levyfelipess/projeto_churn-prediction/blob/main/notebooks/03_model-comparison_threshold-tuning.ipynb)
+> [Notebook 1: EDA](https://nbviewer.org/github/levyfelipess/project_churn-prediction/blob/main/notebooks/01_eda.ipynb) \
+> [Notebook 2: Modelagem e Avaliação](https://nbviewer.org/github/levyfelipess/project_churn-prediction/blob/main/notebooks/02_modeling_evaluation.ipynb) \
+> [Notebook 3: Comparação entre modelos e Análise de *Threshold*](https://nbviewer.org/github/levyfelipess/project_churn-prediction/blob/main/notebooks/03_model-comparison_threshold-tuning.ipynb)
 
 ## Resultados
 

@@ -1,6 +1,4 @@
 import numpy as np
-from numpy import format_float_positional as ffp
-import pandas as pd
 import joblib
 from datetime import timedelta
 

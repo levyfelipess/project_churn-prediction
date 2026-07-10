@@ -1,0 +1,8 @@
+,Training,Test
+Accuracy,0.810,0.813
+Precision,0.680,0.684
+Recall,0.539,0.550
+F1-Score,0.601,0.610
+F2.-Score,0.562,0.573
+AUROC,-----,0.860
+AUPR,-----,0.687

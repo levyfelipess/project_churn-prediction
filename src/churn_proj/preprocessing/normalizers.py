@@ -155,6 +155,8 @@ def get_transformers(df_X, df_y):
     'DT':ColumnTransformer(
         [('OneHot', OneHotEncoder(sparse_output=False), df_X.dtypes[df_X.dtypes == 'object'].index)], remainder='passthrough'),
     'RF':ColumnTransformer(
+        [('OneHot', OneHotEncoder(sparse_output=False), df_X.dtypes[df_X.dtypes == 'object'].index)], remainder='passthrough'),
+    'XGB':ColumnTransformer(
         [('OneHot', OneHotEncoder(sparse_output=False), df_X.dtypes[df_X.dtypes == 'object'].index)], remainder='passthrough')
     }
 

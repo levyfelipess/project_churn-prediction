@@ -67,45 +67,37 @@ project_churn-prediction/
 ├── data/
 │   ├── raw/
 │   └── processed/
+│
 ├── models/
+│
 ├── notebooks/
 │   ├── 01_eda.ipynb
-│   ├── 02_modeling_evaluation.ipynb
+│   ├── 02_modeling-and-evaluation.ipynb
 │   └── 03_model-comparison_threshold-tuning.ipynb
+│
 ├── reports/
 │   ├── figures/
 │   │   ├── en/
 │   │   └── pt-br/
 │   └── tables/
+│
 ├── src/
-│   ├── eda.py
-│   ├── evaluation.py
-│   ├── modeling.py
-│   ├── models.py
-│   ├── preprocessing.py
-│   └── utils.py
+│   └── churn_proj/
+│       ├── eda/
+│       ├── evaluation/
+│       ├── modeling/
+│       ├── preprocessing/
+│       └── utils/
+│
 ├── .gitignore
 ├── CHANGELOG.md
 ├── README.md
-└── requirements.txt
+└── pyproject.toml
 ```
 
 ## How to Run the Project
-1. Clone the repository:
-```
-git clone https://github.com/levyfelipess/project_churn-prediction
-```
-2. Enter the directory:
-```
-cd project_churn-prediction
-```
-3. Install specific dependencies:
-```
-pip install -r requirements.txt
-```
-And then, run the notebooks.
+We recommend using *git bash*:
 
-### (OPTIONAL, but recommended) Using a virtual environment
 1. Clone the repository:
 ```
 git clone https://github.com/levyfelipess/project_churn-prediction
@@ -118,17 +110,17 @@ cd project_churn-prediction
 ```
 python -m venv .venv
 ```
-4. Activate the virtual environment (Git bash):
+4. Activate the virtual environment (git bash):
 ```
 source .venv/Scripts/activate
 ```
-5. Install specific dependencies:
+5. Install the complete project (external dependencies and the package under `src/`) in editable mode:
 ```
-pip install -r requirements.txt
+pip install -e .
 ```
 6. Create a specific kernel for the environment:
 ```
-python -m ipykernel install --user --name=kernel-name
+python -m ipykernel install --user --name=`kernel-name`
 ```
 Afterwards, select the created kernel when opening the notebooks.
 
@@ -136,7 +128,7 @@ Afterwards, select the created kernel when opening the notebooks.
 For a complete viewing experience, if possible, access via NBViewer (especially Notebook 3):
 
 > [Notebook 1: EDA](https://nbviewer.org/github/levyfelipess/project_churn-prediction/blob/main/notebooks/01_eda.ipynb) \
-> [Notebook 2: Modeling and Evaluation](https://nbviewer.org/github/levyfelipess/project_churn-prediction/blob/main/notebooks/02_modeling_evaluation.ipynb) \
+> [Notebook 2: Modeling and Evaluation](https://nbviewer.org/github/levyfelipess/project_churn-prediction/blob/main/notebooks/02_modeling-and-evaluation.ipynb) \
 > [Notebook 3: Model Comparison and Threshold Analysis](https://nbviewer.org/github/levyfelipess/project_churn-prediction/blob/main/notebooks/03_model-comparison_threshold-tuning.ipynb)
 
 ## Results
@@ -222,68 +214,60 @@ project_churn-prediction/
 ├── data/
 │   ├── raw/
 │   └── processed/
+│
 ├── models/
+│
 ├── notebooks/
 │   ├── 01_eda.ipynb
-│   ├── 02_modeling_evaluation.ipynb
+│   ├── 02_modeling-and-evaluation.ipynb
 │   └── 03_model-comparison_threshold-tuning.ipynb
+│
 ├── reports/
 │   ├── figures/
 │   │   ├── en/
 │   │   └── pt-br/
 │   └── tables/
+│
 ├── src/
-│   ├── eda.py
-│   ├── evaluation.py
-│   ├── modeling.py
-│   ├── models.py
-│   ├── preprocessing.py
-│   └── utils.py
+│   └── churn_proj/
+│       ├── eda/
+│       ├── evaluation/
+│       ├── modeling/
+│       ├── preprocessing/
+│       └── utils/
+│
 ├── .gitignore
 ├── CHANGELOG.md
 ├── README.md
-└── requirements.txt
+└── pyproject.toml
 ```
 
 ## Como Executar o Projeto
-1. Clonar o repositório:
-```
-git clone https://github.com/levyfelipess/project_churn-prediction
-```
-2. Entrar no diretório:
-```
-cd project_churn-prediction
-```
-3. Instalar dependências específicas:
-```
-pip install -r requirements.txt
-```
-E então, rodar os notebooks.
+Recomendamos a utilização do *git bash*:
 
-### (OPCIONAL, mas recomendado) Utilizar ambiente virtual
 1. Clonar o repositório:
 ```
 git clone https://github.com/levyfelipess/project_churn-prediction
 ```
-2. Entrar no diretório:
+2. Acessar o repositório:
 ```
 cd project_churn-prediction
 ```
-3. Criar ambiente virtual:
+3. Criar um ambiente virtual:
 ```
 python -m venv .venv
 ```
-4. Ativar ambiente virtual (Git bash):
+4. Ativar o ambiente virtual (git bash):
 ```
 source .venv/Scripts/activate
 ```
-5. Instalar dependências específicas:
+5. Instalar o projeto completo (dependências externas e o pacote em `src/`) em modo editável:
 ```
-pip install -r requirements.txt
+pip install -e .
 ```
-6. Criar kernel específico para o ambiente:
+6. Criar um kernel específico para o ambiente virtual:
 ```
-python -m ipykernel install --user --name=nome-do-kernel
+python -m ipykernel install --user --name=`kernel-name`
 ```
 Após, selecionar o kernel criado quando abrir os notebooks.
 
@@ -291,7 +275,7 @@ Após, selecionar o kernel criado quando abrir os notebooks.
 Para uma experiência de visualização completa, se possível, acessar pelo NBViewer (principalmente o Notebook 3):
 
 > [Notebook 1: EDA](https://nbviewer.org/github/levyfelipess/project_churn-prediction/blob/main/notebooks/01_eda.ipynb) \
-> [Notebook 2: Modelagem e Avaliação](https://nbviewer.org/github/levyfelipess/project_churn-prediction/blob/main/notebooks/02_modeling_evaluation.ipynb) \
+> [Notebook 2: Modelagem e Avaliação](https://nbviewer.org/github/levyfelipess/project_churn-prediction/blob/main/notebooks/02_modeling-and-evaluation.ipynb) \
 > [Notebook 3: Comparação entre modelos e Análise de *Threshold*](https://nbviewer.org/github/levyfelipess/project_churn-prediction/blob/main/notebooks/03_model-comparison_threshold-tuning.ipynb)
 
 ## Resultados

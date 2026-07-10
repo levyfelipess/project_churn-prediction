@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 
 ---
+## v2.1.0 - XGBoost
+- Added the XGBoost model.
+
+---
 ## v2.0.0 - Transforming the Project into a Installable Python Package
 - Discontinued the use of `requirements.txt` for external dependencies;
 - Adopted a modern python packaging convention which combines the installation of external dependencies and the locally editable source code as a package using `pyproject.toml`;

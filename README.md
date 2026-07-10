@@ -27,11 +27,12 @@ This project aims to predict churn and support cost-benefit-based retention deci
 - Exploratory Data Analysis (EDA);
 - Data preprocessing (treatment, normalization, and encoding);
 - Comparison between multiple approaches:
-  - Logistic Regression (LR);
-  - K-Nearest Neighbors (KNN);
-  - Decision Trees (DT);
-  - Random Forests (RF);
-  - Support Vector Machines (SVM);
+  - Logistic Regression (**LR**);
+  - K-Nearest Neighbors (**KNN**);
+  - Decision Trees (**DT**);
+  - Random Forests (**RF**);
+  - Extreme Gradient Boosting (**XGB**);
+  - Support Vector Machines (**SVM**);
 - Hyperparameter optimization with random search and cross-validation;
 - Threshold analysis based on unequal error costs.
 
@@ -178,6 +179,7 @@ Este projeto tem como objetivo prever o _churn_ e apoiar decisões de retenção
   - K-Vizinhos mais Próximos (**KNN**);
   - Árvores de Decisão (**DT**);
   - Florestas Aleatórias (**RF**);
+  - Máquinas Extremas de Gradiente Impulsionados (**XGB**);
   - Máquinas de Vetores de Suporte (**SVM**);
 - Otimização de hiperparâmetros com busca aleatória e validação cruzada;
 - Análise de _threshold_ baseado nos custos desiguais dos erros.

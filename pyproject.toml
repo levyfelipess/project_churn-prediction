@@ -14,7 +14,10 @@ dependencies = [
 	"matplotlib==3.10.7",
 	"seaborn==0.13.2",
 	"scikit-learn==1.5.2",
-	"xgboost",
+	"xgboost==3.2.0",
+	"sqlalchemy==2.0.51"
+	"python-dotenv==1.2.2",
+	"psycopg2-binary==2.9.12",
 	"joblib",
 	"jupyter",
 	"tqdm"

@@ -24,14 +24,16 @@ This project aims to predict churn and support cost-benefit-based retention deci
   - Demographic information about customers: gender (column `gender`), age range (column `SeniorCitizen`), and whether they have a partner (column `Partner`) or dependents (column `Dependents`).
 
 ### Approach
-- Exploratory Data Analysis (EDA);
+- Data infrastructure simulation through the normalization of raw data into 3 relational tables hosted on a cloud PostgreSQL database (Neon.tech);
+- Data extraction and ingest via secure data loading and recovery utilizing SQL queries;
+- Exploratory Data Analysis (EDA) conducted via both Python and SQL;
 - Data preprocessing (treatment, normalization, and encoding);
 - Comparison between multiple approaches:
   - Logistic Regression (**LR**);
   - K-Nearest Neighbors (**KNN**);
   - Decision Trees (**DT**);
   - Random Forests (**RF**);
-  - Extreme Gradient Boosting (**XGB**);
+  - Extreme Gradient Boosting (XGBoost, **XGB**);
   - Support Vector Machines (**SVM**);
 - Hyperparameter optimization with random search and cross-validation;
 - Threshold analysis based on unequal error costs.
@@ -39,8 +41,10 @@ This project aims to predict churn and support cost-benefit-based retention deci
 ## Key Project Highlights
 
 ### Project Organization and Engineering
-- Organized modular structure (`src/`, `notebooks/`, `data/`, `models/`, `reports/`);
-- Separation between reusable code and exploratory notebooks;
+- Organized modular structure (`src/`, `notebooks/`, `sql/`, `data/`, `models/`, `reports/`);
+- Integration with the PostgreSQL cloud database via `SQLAlchemy` and the `psycopg2` database driver;
+- Security and best practices applied by isolating sensitive credentials in environment variables (`.env`) protected via `.gitignore` protocols;
+- Separation between reusable code, modular SQL queries, and exploratory notebooks;
 - Persistence of trained models;
 - Documented functions and classes;
 - Reproducibility and traceability of experiments (Git);
@@ -52,7 +56,7 @@ This project aims to predict churn and support cost-benefit-based retention deci
 
 ### Machine Learning Pipeline
 - Data splitting preserving the stratification of the output class;
-- Comparison between linear, non-linear, parametric, and non-parametric approaches;
+- Comparison between linear, non-linear, parametric, and non-parametric approaches, featuring advanced gradient boosting with XGBoost;
 - Practices for total data leakage prevention;
 - Hyperparameter optimization with random search, stratified cross-validation, AUROC maximization, and the "1SE" rule;
 - Overfitting control;
@@ -74,13 +78,16 @@ project_churn-prediction/
 ├── notebooks/
 │   ├── 01_eda.ipynb
 │   ├── 02_modeling-and-evaluation.ipynb
-│   └── 03_model-comparison_threshold-tuning.ipynb
+│   ├── 03_model-comparison_threshold-tuning.ipynb
+│   └── 04_sql.ipynb
 │
 ├── reports/
 │   ├── figures/
 │   │   ├── en/
 │   │   └── pt-br/
 │   └── tables/
+│
+├── sql/
 │
 ├── src/
 │   └── churn_proj/
@@ -131,6 +138,7 @@ For a complete viewing experience, if possible, access via NBViewer (especially 
 > [Notebook 1: EDA](https://nbviewer.org/github/levyfelipess/project_churn-prediction/blob/main/notebooks/01_eda.ipynb) \
 > [Notebook 2: Modeling and Evaluation](https://nbviewer.org/github/levyfelipess/project_churn-prediction/blob/main/notebooks/02_modeling-and-evaluation.ipynb) \
 > [Notebook 3: Model Comparison and Threshold Analysis](https://nbviewer.org/github/levyfelipess/project_churn-prediction/blob/main/notebooks/03_model-comparison_threshold-tuning.ipynb)
+> [Notebook 4: SQL Queries Through an Enterprise Production Environment Simulation](https://nbviewer.org/github/levyfelipess/project_churn-prediction/blob/main/notebooks/04_sql.ipynb)
 
 ## Results
 
@@ -172,14 +180,16 @@ Este projeto tem como objetivo prever o _churn_ e apoiar decisões de retenção
   - Informações demográficas sobre os clientes: sexo (coluna `gender`), faixa etária (coluna `SeniorCitizen`) e se possuem cônjuge (coluna `Partner`) ou dependentes (coluna `Dependents`).
 
 ### Abordagem
-- Análise exploratória de dados (EDA);
+- Simulação de infraestrutura de dados por meio da normalização do *dataset* bruto em 3 tabelas relacionais hospedadas em um banco de dados PostgreSQL na nuvem (Neon.tech);
+- Extração e ingestão de dados via carregamento seguro e recuperação utilizando consultas SQL;
+- Análise Exploratória de Dados (EDA) realizada com Python e SQL;
 - Pré-processamento de dados (tratamento, normalização e codificação);
 - Comparação entre múltiplas abordagens:
   - Regressão Logística (**LR**);
   - K-Vizinhos mais Próximos (**KNN**);
   - Árvores de Decisão (**DT**);
   - Florestas Aleatórias (**RF**);
-  - Máquinas Extremas de Gradiente Impulsionados (**XGB**);
+  - Máquinas Extremas de Gradientes Impulsionados (XGBoost, **XGB**);
   - Máquinas de Vetores de Suporte (**SVM**);
 - Otimização de hiperparâmetros com busca aleatória e validação cruzada;
 - Análise de _threshold_ baseado nos custos desiguais dos erros.
@@ -187,8 +197,10 @@ Este projeto tem como objetivo prever o _churn_ e apoiar decisões de retenção
 ## Principais Diferenciais do Projeto
 
 ### Organização e Engenharia de Projetos
-- Estrutura modular organizada (`src/`, `notebooks/`, `data/`, `models/`, `reports/`);
-- Separação entre código reutilizável e notebooks exploratórios;
+- Estrutura modular organizada (`src/`, `notebooks/`, `sql/`, `data/`, `models/`, `reports/`);
+- Integração do banco de dados na nuvem PostgreSQL via `SQLAlchemy` e o driver `psycopg2`;
+- Segurança e boas práticas aplicadas através do isolamento de credenciais sensíveis em variáveis ​​de ambiente (`.env`), protegidas por protocolos do `.gitignore`;
+- Separação entre código reutilizável, consultas SQL modulares e notebooks exploratórios;
 - Persistência de modelos treinados;
 - Funções e classes documentadas;
 - Reprodutibilidade e rastreamento dos experimentos (Git);
@@ -200,7 +212,7 @@ Este projeto tem como objetivo prever o _churn_ e apoiar decisões de retenção
 
 ### Pipeline de Aprendizagem de Máquina
 - _Data splitting_ preservando a estratificação da classe de saída;
-- Comparação entre abordagens lineares, não lineares, paramétricas, não paramétricas;
+- Comparação entre abordagens lineares, não lineares, paramétricas e não paramétricas, incluindo *gradient boosting* avançado com XGBoost;
 - Práticas de prevenção total a _data leakage_;
 - Otimização de hiperparâmetros com busca aleatória, validação cruzada estratificada, maximização da AUROC e regra "1SE";
 - Estratégias de monitoramento e proteção a _overfitting_;
@@ -222,13 +234,16 @@ project_churn-prediction/
 ├── notebooks/
 │   ├── 01_eda.ipynb
 │   ├── 02_modeling-and-evaluation.ipynb
-│   └── 03_model-comparison_threshold-tuning.ipynb
+│   ├── 03_model-comparison_threshold-tuning.ipynb
+│   └── 04_sql.ipynb
 │
 ├── reports/
 │   ├── figures/
 │   │   ├── en/
 │   │   └── pt-br/
 │   └── tables/
+│
+├── sql/
 │
 ├── src/
 │   └── churn_proj/
@@ -278,7 +293,8 @@ Para uma experiência de visualização completa, se possível, acessar pelo NBV
 
 > [Notebook 1: EDA](https://nbviewer.org/github/levyfelipess/project_churn-prediction/blob/main/notebooks/01_eda.ipynb) \
 > [Notebook 2: Modelagem e Avaliação](https://nbviewer.org/github/levyfelipess/project_churn-prediction/blob/main/notebooks/02_modeling-and-evaluation.ipynb) \
-> [Notebook 3: Comparação entre modelos e Análise de *Threshold*](https://nbviewer.org/github/levyfelipess/project_churn-prediction/blob/main/notebooks/03_model-comparison_threshold-tuning.ipynb)
+> [Notebook 3: Comparação entre Modelos e Análise de *Threshold*](https://nbviewer.org/github/levyfelipess/project_churn-prediction/blob/main/notebooks/03_model-comparison_threshold-tuning.ipynb)
+> [Notebook 4: Consultas SQL por Meio de uma Simulação de Ambiente de Produção Corporativo](https://nbviewer.org/github/levyfelipess/project_churn-prediction/blob/main/notebooks/04_sql.ipynb)
 
 ## Resultados
 

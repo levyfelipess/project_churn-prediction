@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 
 ---
+## v2.2.0 - Applying SQL
+- Data infrastructure simulation through the normalization of raw data into 3 relational tables hosted on a cloud PostgreSQL database (Neon.tech);
+- Data extraction, ingest and analyses through secure data loading and recovery and some tabular analyses using SQL queries (`LEFT JOINs`, aggregates, CTEs);
+- PostgreSQL integration via `SQLAlchemy` and `psycopg2` as the database driver;
+- Database credentials securely isolated via Environment Variables (`.env`) and protected through `.gitignore` protocols;
+
+---
 ## v2.1.0 - XGBoost
 - Added the XGBoost model.
 

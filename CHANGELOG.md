@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 
 ---
+## v2.2.1 - Small Modifications for Better Visualizations
+- Cleaner visualizations in `.sql` queries;
+- PT-BR titles and descriptions in `04_sql.ipynb`;
+- Several tiny modifications in pt-br subtitles in notebooks 01, 02 and 03.
+
+---
 ## v2.2.0 - Applying SQL
 - Data infrastructure simulation through the normalization of raw data into 3 relational tables hosted on a cloud PostgreSQL database (Neon.tech);
 - Data extraction, ingest and analyses through secure data loading and recovery and some tabular analyses using SQL queries (`LEFT JOINs`, aggregates, CTEs);

@@ -137,7 +137,7 @@ For a complete viewing experience, if possible, access via NBViewer (especially 
 
 > [Notebook 1: EDA](https://nbviewer.org/github/levyfelipess/project_churn-prediction/blob/main/notebooks/01_eda.ipynb) \
 > [Notebook 2: Modeling and Evaluation](https://nbviewer.org/github/levyfelipess/project_churn-prediction/blob/main/notebooks/02_modeling-and-evaluation.ipynb) \
-> [Notebook 3: Model Comparison and Threshold Analysis](https://nbviewer.org/github/levyfelipess/project_churn-prediction/blob/main/notebooks/03_model-comparison_threshold-tuning.ipynb)
+> [Notebook 3: Model Comparison and Threshold Analysis](https://nbviewer.org/github/levyfelipess/project_churn-prediction/blob/main/notebooks/03_model-comparison_threshold-tuning.ipynb) \
 > [Notebook 4: SQL Queries Through an Enterprise Production Environment Simulation](https://nbviewer.org/github/levyfelipess/project_churn-prediction/blob/main/notebooks/04_sql.ipynb)
 
 ## Results
@@ -293,7 +293,7 @@ Para uma experiência de visualização completa, se possível, acessar pelo NBV
 
 > [Notebook 1: EDA](https://nbviewer.org/github/levyfelipess/project_churn-prediction/blob/main/notebooks/01_eda.ipynb) \
 > [Notebook 2: Modelagem e Avaliação](https://nbviewer.org/github/levyfelipess/project_churn-prediction/blob/main/notebooks/02_modeling-and-evaluation.ipynb) \
-> [Notebook 3: Comparação entre Modelos e Análise de *Threshold*](https://nbviewer.org/github/levyfelipess/project_churn-prediction/blob/main/notebooks/03_model-comparison_threshold-tuning.ipynb)
+> [Notebook 3: Comparação entre Modelos e Análise de *Threshold*](https://nbviewer.org/github/levyfelipess/project_churn-prediction/blob/main/notebooks/03_model-comparison_threshold-tuning.ipynb) \
 > [Notebook 4: Consultas SQL por Meio de uma Simulação de Ambiente de Produção Corporativo](https://nbviewer.org/github/levyfelipess/project_churn-prediction/blob/main/notebooks/04_sql.ipynb)
 
 ## Resultados
